@@ -1,0 +1,52 @@
+html {text-align:center;}
+body {font-family:sans-serif; font-size:16px; padding:0; margin:0 auto; text-align:left;}
+
+#nav ul,
+#nav li,
+#nav a {display:block;margin:0;padding:0;list-style:none;float:left;}
+
+#nav ul {background:gray;}
+#nav li {position:relative;}
+#nav a {float:none; color:white; text-decoration:none;}
+
+
+@media all and (max-width: 480px){
+    body {min-width:320px;}
+
+    #nav {overflow:hidden;}
+    #nav ul {}
+    #nav li {width:100%;}
+    #nav a {line-height:1.4em; padding:.5em 1em; border-bottom:1px solid #ccc;}
+
+    #nav li.parent > a {background:url(images/nav-parent-icon.png) no-repeat 98% center;}
+
+    #nav li.parent > ul {position:absolute; visibility:hidden; left:100%; transition:left .75s;}
+    #nav li.parent.focus > a {background-color:#999;}
+    #nav li.parent.focus > ul {position:relative; left:0; visibility:visible;}
+
+    #nav li ul > li > a {padding-left:2.25em;}
+    #nav li li ul > li > a {padding-left:4.5em;}
+    #nav li li li ul > li > a {padding-left:6.25em;}
+    #nav li li li li ul > li > a {padding-left:8.5em;}
+}
+
+
+
+@media all and (min-width: 481px){
+    body {max-width:1024px;}
+
+    #nav > ul {width:100%;}
+    #nav > ul > li {width:20%;}
+    #nav > ul > li > a {border-left:1px solid #999;border-right:1px solid #999;}
+    #nav a {padding:.5em 1em; text-align:center;}
+    #nav a:hover {background-color:#999;}
+
+    #nav li ul {visibility:hidden; z-index:554; opacity:0; transition:opacity .5s, top .25s, left .25s; position:absolute; top:100%; left:0; width:100%;}
+    #nav li li {float:none;font-size:90%;}
+    #nav li li a {border-bottom:1px solid #ccc;}
+    #nav li.focus > ul {display:block; opacity:1; visibility:visible;}
+    #nav li.focus > ul > li > ul {left:120%;top:10%;}
+    #nav li > ul > li.focus > ul {left:100%; top:0; z-index:555;}
+
+}
+
