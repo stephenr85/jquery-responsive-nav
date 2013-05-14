@@ -6,7 +6,7 @@ Select your navigation element (the parent of your nav's root <ul>) and call the
 ```javascript
 $(document).ready(function(){
 
-    $('#nav').__responsiveNav__({...});
+    $('#nav').responsiveNav({...});
 
 });
 ```
