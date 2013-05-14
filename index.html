@@ -1,9 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-      <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-      <script src="script.js"></script>
-      <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="jquery.responsiveNav.js"></script>
+    <script>
+      $(document).ready(function(){
+
+        $('#nav').responsiveNav({
+            generateSubSectionLinks:false,
+            sectionSecondTapGo:true
+        });
+
+      });
+    </script>
 </head>
 <body>
 <div id="nav">
@@ -18,7 +28,7 @@
         </li>
         <li class="living"><a href="/living">Living</a>
             <ul>
-                <li><a href="/living">Overview</a></li>
+
                 <li><a href="/living/apartments">Apartments Directory</a><ul>
                     <li><a href="/living">Overview</a></li>
                     <li><a href="/living/apartments">Apartments Directory</a></li>

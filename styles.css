@@ -24,10 +24,13 @@ body {font-family:sans-serif; font-size:16px; padding:0; margin:0 auto; text-ali
     #nav li.parent.focus > a {background-color:#999;}
     #nav li.parent.focus > ul {position:relative; left:0; visibility:visible;}
 
+    #nav li.section-generated > a {color:rgba(255,255,255, .6);}
+
     #nav li ul > li > a {padding-left:2.25em;}
     #nav li li ul > li > a {padding-left:4.5em;}
     #nav li li li ul > li > a {padding-left:6.25em;}
     #nav li li li li ul > li > a {padding-left:8.5em;}
+
 }
 
 
@@ -40,6 +43,9 @@ body {font-family:sans-serif; font-size:16px; padding:0; margin:0 auto; text-ali
     #nav > ul > li > a {border-left:1px solid #999;border-right:1px solid #999;}
     #nav a {padding:.5em 1em; text-align:center;}
     #nav a:hover {background-color:#999;}
+
+    #nav li.back-generated {display:none;}
+    #nav li.section-generated {display:none;}
 
     #nav li ul {visibility:hidden; z-index:554; opacity:0; transition:opacity .5s, top .25s, left .25s; position:absolute; top:100%; left:0; width:100%;}
     #nav li li {float:none;font-size:90%;}
