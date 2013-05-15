@@ -7,45 +7,60 @@ body {font-family:sans-serif; font-size:16px; padding:0; margin:0 auto; text-ali
 
 #nav ul {background:gray;}
 #nav li {position:relative;}
-#nav a {float:none; color:white; text-decoration:none;}
+#nav a {float:none; color:white; text-decoration:none; cursor:pointer;}
 
 
-@media all and (max-width: 480px){
+@media all and (max-width: 730px){
     body {min-width:320px;}
 
-    #nav {overflow:hidden;}
-    #nav ul {}
+    #nav {overflow:hidden; max-height:0em; transition:max-height 2s; padding-top:2.4em;}
+    #nav.focus {max-height:199em;}
+    #nav ul {width:100%;}
     #nav li {width:100%;}
     #nav a {line-height:1.4em; padding:.5em 1em; border-bottom:1px solid #ccc;}
+    #nav a > i {position:absolute; height:100%; width:50px;}
 
-    #nav li.parent > a {background:url(images/nav-parent-icon.png) no-repeat 98% center;}
+    #nav > .menu-handle {color:rgba(255,255,255, .6); text-align:right; background:#999; cursor:pointer; padding:0; position:absolute; left:0; top:0; width:100%;}
+    #nav > .menu-handle > span {display:inline-block; padding:.5em 50px .5em 1em;}
+    #nav > .menu-handle > i {height:100%; width:50px; background:url(images/menu-handle.png) no-repeat center center; display:inline-block; position:absolute; right:0; top:0;}
+
+    #nav li.parent > a {position:relative;}
+    #nav li.parent > a > .go-handle {background:#777 url(images/go-handle.png) no-repeat center center; right:0; top:0;}
+    #nav li.parent > a > .focus-handle {background:#777 url(images/focus-handle.png) no-repeat center center; right:52px; top:0;}
+
 
     #nav li.parent > ul {position:absolute; visibility:hidden; left:100%; transition:left .75s;}
     #nav li.parent.focus > a {background-color:#999;}
     #nav li.parent.focus > ul {position:relative; left:0; visibility:visible;}
 
-    #nav li.section-generated > a {color:rgba(255,255,255, .6);}
+    #nav li.back > a {padding-left:60px; color:rgba(255,255,255, .6);}
+    #nav li.back > a > i {background:#777 url(images/back-handle.png) no-repeat center center; left:0; top:0;}
 
-    #nav li ul > li > a {padding-left:2.25em;}
-    #nav li li ul > li > a {padding-left:4.5em;}
-    #nav li li li ul > li > a {padding-left:6.25em;}
-    #nav li li li li ul > li > a {padding-left:8.5em;}
+
+    #nav li.section > a {color:rgba(255,255,255, .6);}
+
+    #nav li ul > li > a {padding-left:2.5em;}
+    #nav li li ul > li > a {padding-left:5em;}
+    #nav li li li ul > li > a {padding-left:7.5em;}
+    #nav li li li li ul > li > a {padding-left:9em;}
 
 }
 
 
 
-@media all and (min-width: 481px){
+@media all and (min-width: 731px){
     body {max-width:1024px;}
 
+    #nav > .menu-handle {display:none;}
+
     #nav > ul {width:100%;}
-    #nav > ul > li {width:20%;}
+    #nav > ul > li {width:16.666%;}
     #nav > ul > li > a {border-left:1px solid #999;border-right:1px solid #999;}
     #nav a {padding:.5em 1em; text-align:center;}
     #nav a:hover {background-color:#999;}
 
-    #nav li.back-generated {display:none;}
-    #nav li.section-generated {display:none;}
+    #nav li.back {display:none;}
+    #nav li.section {display:none;}
 
     #nav li ul {visibility:hidden; z-index:554; opacity:0; transition:opacity .5s, top .25s, left .25s; position:absolute; top:100%; left:0; width:100%;}
     #nav li li {float:none;font-size:90%;}
@@ -54,5 +69,40 @@ body {font-family:sans-serif; font-size:16px; padding:0; margin:0 auto; text-ali
     #nav li.focus > ul > li > ul {left:120%;top:10%;}
     #nav li > ul > li.focus > ul {left:100%; top:0; z-index:555;}
 
+
+
 }
 
+
+
+
+
+
+
+/*
+
+    Navigation 2
+*/
+
+@media all and (max-width: 730px){
+
+    #nav.nav2 {position:relative; max-height:none; height:300px;}
+    #nav.nav2 ul {position:static; left:0; top:0; transition:left 1s;}
+    #nav.nav2 li {}
+
+    #nav.nav2 ul ul {display:none;}
+    #nav.nav2.focus ul ul {display:block;}
+
+    #nav.nav2 > ul {position:absolute;left:100%;}
+    #nav.nav2.focus > ul {position:relative;top:0;left:0;}
+
+    #nav.nav2 > ul.focus {left:-100%; top:2.4em; position:absolute;}
+
+    #nav.nav2 li.parent.focus {position:static; left:0; top:auto;}
+    #nav.nav2 li.parent.focus > ul {position:absolute; left:100%;top:0;}
+    #nav.nav2 li.parent.focus > ul.focus {left:0;}
+
+    #nav.nav2 li.parent.focus li > a {padding-left:60px;}
+
+
+}
