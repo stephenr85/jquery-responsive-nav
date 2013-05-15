@@ -39,12 +39,12 @@
 
             $nav.find('li:has(> ul)').addClass('parent');
 
-            $nav.on('click', 'li.parent > a, a > .focus-handle', function(evt){
+            $nav.on('click', 'li.parent > a', function(evt){
                 if($(evt.target).is('.go-handle')) return;
-
+                console.log($(evt.target).is('.focus-handle'));
                 var $li = $(this).closest('li');
                 if(I.isSmall()){
-                    if((!$li.hasClass('focus') || !I.options.sectionSecondTapGo)){
+                    if(!$li.hasClass('focus') || ($(evt.target).is('.focus-handle') || (!I.options.sectionSecondTapGo))){
                         evt.preventDefault();
 
                         $li.toggleClass('focus');
@@ -78,7 +78,7 @@
                 var genIcoFn = typeof this.options.generateIconElements === 'function' ? this.options.generateIconElements : function($a, $li, $ul){
                     var goEl = $a.attr('href') && !/#/.test($a.attr('href')) ? '<i class="go-handle generated"/>' : '',
                         focusEl = '<i class="focus-handle generated"/>' ;
-                    console.log($a.get(0), $ul)
+
                     return $ul.length ? goEl+focusEl : goEl;
                 };
                 $nav.find('li > a').each(function(i, anchor){

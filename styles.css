@@ -18,19 +18,21 @@ body {font-family:sans-serif; font-size:16px; padding:0; margin:0 auto; text-ali
     #nav ul {width:100%;}
     #nav li {width:100%;}
     #nav a {line-height:1.4em; padding:.5em 1em; border-bottom:1px solid #ccc;}
-    #nav a > i {position:absolute; height:100%; width:50px;}
+    #nav a > i {position:absolute; height:97%; width:50px;}
 
     #nav > .menu-handle {color:rgba(255,255,255, .6); text-align:right; background:#999; cursor:pointer; padding:0; position:absolute; left:0; top:0; width:100%;}
     #nav > .menu-handle > span {display:inline-block; padding:.5em 50px .5em 1em;}
     #nav > .menu-handle > i {height:100%; width:50px; background:url(images/menu-handle.png) no-repeat center center; display:inline-block; position:absolute; right:0; top:0;}
 
+    #nav li > a > .go-handle {background:#777 url(images/go-handle.png) no-repeat center center; right:0; top:0;}
+
     #nav li.parent > a {position:relative;}
-    #nav li.parent > a > .go-handle {background:#777 url(images/go-handle.png) no-repeat center center; right:0; top:0;}
     #nav li.parent > a > .focus-handle {background:#777 url(images/focus-handle.png) no-repeat center center; right:52px; top:0;}
 
 
     #nav li.parent > ul {position:absolute; visibility:hidden; left:100%; transition:left .75s;}
     #nav li.parent.focus > a {background-color:#999;}
+    #nav li.parent.focus > a > .focus-handle {background-image:url(images/back-handle.png);}
     #nav li.parent.focus > ul {position:relative; left:0; visibility:visible;}
 
     #nav li.back > a {padding-left:60px; color:rgba(255,255,255, .6);}
