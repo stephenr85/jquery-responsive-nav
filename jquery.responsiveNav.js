@@ -22,7 +22,8 @@
                 return $ul.find('> li > a[href="'+$a.attr('href')+'"]').length;
             },
             sectionSecondTapGo:true,
-            generateIconElements:true
+            generateFocusIcons:true,
+            generateGoIcons:true
         },
         option:function(key, value){
             if(arguments.length === 1 && typeof key === 'string'){
@@ -51,7 +52,7 @@
                         if($li.is('.focus')){
                             $li.parents('li,ul').addClass('focus');
                         }else{
-                            $li.parents('li,ul').removeClass('focus');
+                            $li.closest('li,ul').removeClass('focus');
                         }
                         if(I.options.smallShowsSingle){
                             $li.siblings().removeClass('focus');
@@ -74,19 +75,29 @@
                 }
             });
 
-            if(this.options.generateIconElements){
-                var genIcoFn = typeof this.options.generateIconElements === 'function' ? this.options.generateIconElements : function($a, $li, $ul){
-                    var goEl = $a.attr('href') && !/#/.test($a.attr('href')) ? '<i class="go-handle generated"/>' : '',
-                        focusEl = '<i class="focus-handle generated"/>' ;
-
-                    return $ul.length ? goEl+focusEl : goEl;
+            if(this.options.generateFocusIcons){
+                var genFocusIcoFn = typeof this.options.generateFocusIcons === 'function' ? this.options.generateFocusIcons : function($a, $li, $ul){
+                    return $ul.length ? '<i class="focus-handle generated"/>' : '';
                 };
                 $nav.find('li > a').each(function(i, anchor){
                     var $a = $(anchor),
                         $li = $a.closest('li'),
                         $ul = $li.children('ul');
 
-                    $a.append(genIcoFn.call(I, $a, $li, $ul));
+                    $a.append(genFocusIcoFn.call(I, $a, $li, $ul));
+                });
+            }
+
+            if(this.options.generateGoIcons){
+                var genGoIcoFn = typeof this.options.generateGoIcons === 'function' ? this.options.generateGoIcons : function($a, $li, $ul){
+                    return $a.attr('href') && !/#/.test($a.attr('href')) ? '<i class="go-handle generated"/>' : '';
+                };
+                $nav.find('li > a').each(function(i, anchor){
+                    var $a = $(anchor),
+                        $li = $a.closest('li'),
+                        $ul = $li.children('ul');
+
+                    $a.append(genGoIcoFn.call(I, $a, $li, $ul));
                 });
             }
 

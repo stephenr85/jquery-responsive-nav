@@ -43,6 +43,10 @@ By default, this function looks for a child link with the same URL as its sectio
 ###### sectionSecondTapGo
 Goes to the URL the section link specifies, after it has been clicked to reveal its children.
 
-###### generateIconElement
-Default is true, which appends <i class="focus-handle generated"> and <i class="go-handle generated"> elements to the links.
-You may also pass a function for this option, which should return the html/element you want to use for the icon(s).
+###### generateFocusIcon
+Default is true, which appends <i class="focus-handle generated"> to the links. This is typically the "plus" icon or "down" arrow that indicates the item expands/has children.
+You may also pass a function for this option, which should return the html/element you want to use for the icon.
+
+###### generateGoIcon
+Default is true, which appends <i class="go-handle generated"> to the links. This is typically the "right" arrow indicating that the URL takes them somewhere.
+You may also pass a function for this option, which should return the html/element you want to use for the icon.
