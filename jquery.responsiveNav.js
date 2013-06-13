@@ -2,7 +2,14 @@
 (function($){
 
 
-
+	/**
+	* http://github.com/stephenr85/basic_responsive_nav
+	* @class Nav
+	* @author Stephen Rushing, eSiteful
+	* @constructor
+	* @param el
+	* @param options
+	*/
     var Nav = function(el, options){
         this.element = $(el);
         this.options = $.extend({}, this.options, options);
@@ -11,8 +18,6 @@
     Nav.prototype = {
 
         options:{
-            smallWidthMax:480,
-            smallShowsSingle:false,
             generateMenuHandle:true,
             menuHandleText:'Menu',
             generateBackLinks:false,
@@ -23,8 +28,16 @@
             },
             sectionSecondTapGo:true,
             generateFocusIcons:true,
-            generateGoIcons:true
+            generateGoIcons:true,
+			hoverIntentTime: 400,
+			isTouch: ('ontouchstart' in window || navigator.msMaxTouchPoints)
         },
+
+		/**
+		 * @method option
+		 * @param key
+		 * @param value 
+		 */
         option:function(key, value){
             if(arguments.length === 1 && typeof key === 'string'){
                 return this.options[key];
@@ -33,47 +46,67 @@
                 return this;
             }
         },
-
+		
+		/**
+		 * @method init
+		 *
+		 */
         init:function(){
             var I = this,
                 $nav = this.element;
+				
+			$(document.documentElement).addClass(this.options.isTouch ? 'touch' : 'no-touch'); //Add the touch/no-touch class to the <html> tag for styling.
 
-            $nav.find('li:has(> ul)').addClass('parent');
+            $nav.find('li:has(> ul,> div)').addClass('parent');
 
             $nav.on('click', 'li.parent > a', function(evt){
-                if($(evt.target).is('.go-handle')) return;
-                console.log($(evt.target).is('.focus-handle'));
-                var $li = $(this).closest('li');
-                if(I.isSmall()){
-                    if(!$li.hasClass('focus') || ($(evt.target).is('.focus-handle') || (!I.options.sectionSecondTapGo))){
-                        evt.preventDefault();
-
-                        $li.toggleClass('focus');
-                        if($li.is('.focus')){
-                            $li.parents('li,ul').addClass('focus');
-                        }else{
-                            $li.closest('li,ul').removeClass('focus');
-                        }
-                        if(I.options.smallShowsSingle){
-                            $li.siblings().removeClass('focus');
-                        }
-                    }
-                }
+               
+                var $target = $(evt.target),
+					$li = $target.closest('li');
+				
+				if(!$target.is('.focus-handle') &&
+					($target.is('.go-handle') ||
+					($li.is('.focus') && I.options.sectionSecondTapGo))){
+					return;
+				}
+				evt.preventDefault();
+				I.toggleItem($li);
+				
             });
-
+			
+			var intentTimeout,
+				hideIntentTimeout;
+			
             $nav.on('mouseenter', 'li.parent', function(evt){
-                if(!I.isSmall()){
-                    var $li = $(this);
-                    $li.toggleClass('focus');
-                    $li.siblings().removeClass('focus');
+                if(!I.options.isTouch){
+					var $li = $(this);
+					
+					if($li.is('.primary-focus')) return;
+					
+					clearTimeout(intentTimeout);
+					clearTimeout(hideIntentTimeout);
+					$li.one('click', function(evt){
+						clearTimeout(intentTimeout);
+					});
+					intentTimeout = setTimeout(function(){
+						
+						I.focusItem($li);
+						
+					}, I.options.hoverIntentTime);
+                }
+            });
+			
+			
+            $nav.on('mouseleave', function(evt){
+                if(!I.options.isTouch){
+					hideIntentTimeout = setTimeout(function(){
+
+                    	$nav.removeClass('primary-focus');
+
+					}, I.options.hoverIntentTime);
                 }
             });
 
-            $nav.on('mouseleave', 'li.focus', function(evt){
-                if(!I.isSmall()){
-                    $(this).removeClass('focus')
-                }
-            });
 
             if(this.options.generateFocusIcons){
                 var genFocusIcoFn = typeof this.options.generateFocusIcons === 'function' ? this.options.generateFocusIcons : function($a, $li, $ul){
@@ -140,7 +173,32 @@
 
         },
 
-        isSmall:function(){ return $(window).width() <= this.options.smallWidthMax;}
+		focusItem:function(li){
+			var I = this,
+				$li = $(li);
+				
+			$li.addClass('focus primary-focus');
+			$li.parents('li,ul').addClass('focus primary-focus');
+			//$li.children('ul,div').addClass('focus');
+			
+		},
+		
+		blurItem: function(li){
+			var I = this,
+				$li = $(li);
+				
+			$li.removeClass('focus primary-focus');
+			$li.closest('li,ul').removeClass('focus primary-focus');
+		},
+		
+		toggleItem: function(li){
+			var $li = $(li);
+			if($li.hasClass('focus')){
+				this.blurItem(li);
+			}else{
+				this.focusItem(li);
+			}
+		}
     };
 
     $.fn.responsiveNav = function(opts){

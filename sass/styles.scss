@@ -1,0 +1,127 @@
+html {text-align:center;}
+body {font-family:sans-serif; font-size:16px; padding:0; margin:0 auto; text-align:left;}
+
+$primary-color: #444;
+
+#nav ul,
+#nav li,
+#nav a {display:block;margin:0;padding:0;list-style:none;float:left;}
+
+#nav ul {background:gray;}
+#nav li {position:relative;}
+#nav a {float:none; color:white; text-decoration:none; cursor:pointer;}
+
+
+@media all and (max-width: 730px){
+    body {min-width:320px;}
+
+    #nav {
+		overflow:hidden; max-height:0em; transition:max-height 2s; padding-top:2.4em;
+		
+		&.focus {max-height:199em;}
+		
+		ul {width:100%;}
+	    li {width:100%;}
+	    a {line-height:1.4em; padding:.5em 1em; border-bottom:1px solid lighten($primary-color, 5%);}
+	    a > i {position:absolute; height:97%; width:50px;}
+
+	    > .menu-handle {
+			color:rgba(255,255,255, .6); text-align:right; background:lighten($primary-color, 13%); cursor:pointer; padding:0; position:absolute; left:0; top:0; width:100%;
+			> span {display:inline-block; padding:.5em 50px .5em 1em;}
+		    > i {height:100%; width:50px; background:url(../images/menu-handle.png) no-repeat center center; display:inline-block; position:absolute; right:0; top:0;}			
+		}
+		
+	    li > a > .go-handle {background:lighten($primary-color, 10%) url(../images/go-handle.png) no-repeat center center; right:0; top:0;}
+
+	    li.parent {
+			> a {position:relative;}
+	    	> a > .focus-handle {background: lighten($primary-color, 10%) url(../images/focus-handle.png) no-repeat center center; right:52px; top:0;}
+			
+			> ul {position:absolute; visibility:hidden; left:100%; transition:left .75s;}
+			
+			.focus > a {background-color:lighten($primary-color, 5%);}
+		    &.focus > a > .focus-handle {background-image:url(../images/back-handle.png);}
+		    &.focus > ul {position:relative; left:0; visibility:visible;}
+		}
+
+	    li.back > a {padding-left:60px; color:rgba(255,255,255, .6);}
+	    li.back > a > i {background: lighten($primary-color, 10%) url(../images/back-handle.png) no-repeat center center; left:0; top:0;}
+
+
+	    li.section > a {color:rgba(255,255,255, .6);}
+
+	    li ul > li > a {padding-left:2.5em;}
+	    li li ul > li > a {padding-left:5em;}
+	    li li li ul > li > a {padding-left:7.5em;}
+	    li li li li ul > li > a {padding-left:9em;}
+	}
+
+}
+
+
+
+@media all and (min-width: 731px){
+    body {max-width:1024px;}
+
+    #nav {
+	
+		.menu-handle {display:none;}
+
+    	> ul {
+			width:100%;
+			> li {width:16.666%;}
+		    > li > a {border-left:1px solid lighten($primary-color, 10%); border-right:1px solid lighten($primary-color, 10%);}
+		}
+		
+	    a {padding:.5em 1em; text-align:center;}
+	    a:hover {background-color: lighten($primary-color, 13%);}
+
+	    li.back {display:none;}
+	    li.section {display:none;}
+
+	    li ul {visibility:hidden; z-index:554; opacity:0; transition:opacity .5s, top .25s, left .25s; position:absolute; top:100%; left:0; width:100%;}
+	    li li {float:none;font-size:90%;}
+	    li li a {border-bottom:1px solid lighten($primary-color, 5%);}
+	    li.primary-focus > ul {display:block; opacity:1; visibility:visible;}
+	    li.primary-focus > ul > li > ul {left:120%;top:10%;}
+	    li > ul > li.primary-focus > ul {left:100%; top:0; z-index:555;}
+
+	}
+
+}
+
+
+
+/*
+    Navigation 2
+*/
+
+@media all and (max-width: 730px){
+	
+	
+	#nav.nav2 {
+    	position:relative; max-height:none; height:300px;
+    	ul {position:static; left:0; top:0; transition:left 1s;}
+    	li {}
+
+    	ul ul {display:none;}
+    	
+		&.focus ul ul {display:block;}
+
+    	> ul {position:absolute;left:100%;}
+    	&.focus > ul {position:relative;top:0;left:0;}
+
+    	> ul.focus {left:-100%; top:2.4em; position:absolute;}
+
+    	li.parent.focus {
+			position:static; left:0; top:auto;
+			
+			> ul {position:absolute; left:100%;top:0;}
+			> ul.focus {left:0;}
+			li > a {padding-left:60px;}
+		}
+
+	}
+
+
+}

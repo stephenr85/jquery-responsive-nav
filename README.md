@@ -13,12 +13,6 @@ $(document).ready(function(){
 
 ## Options
 
-###### smallWidthMax
-Default is 480. When the viewport is less than or equal to this number, the "small" (touch device, generally) behavior is activated.
-
-###### smallShowsSingle
-Default is false. When true, only one child list will be shown at a time for the "small" behavior.
-
 ###### generateMenuHandle
 Default is true. This generates a <a href="menu-handle generated"><i></i>__options.menuHandleText__<span></a> element. The <i> tag is intended for an icon.
 
