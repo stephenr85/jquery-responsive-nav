@@ -30,7 +30,7 @@
             generateFocusIcons:true,
             generateGoIcons:true,
 			hoverIntentTime: 400,
-			isTouch: ('ontouchstart' in window || navigator.msMaxTouchPoints)
+			isTouch: !!('ontouchstart' in window || navigator.msMaxTouchPoints)
         },
 
 		/**
@@ -58,9 +58,13 @@
 			$(document.documentElement).addClass(this.options.isTouch ? 'touch' : 'no-touch'); //Add the touch/no-touch class to the <html> tag for styling.
 
             $nav.find('li:has(> ul,> div)').addClass('parent');
-
+			
+			var intentTimeout,
+				hideIntentTimeout;
+				
             $nav.on('click', 'li.parent > a', function(evt){
                
+			    clearTimeout(intentTimeout);
                 var $target = $(evt.target),
 					$li = $target.closest('li');
 				
@@ -74,9 +78,6 @@
 				
             });
 			
-			var intentTimeout,
-				hideIntentTimeout;
-			
             $nav.on('mouseenter', 'li.parent', function(evt){
                 if(!I.options.isTouch){
 					var $li = $(this);
@@ -84,24 +85,27 @@
 					if($li.is('.primary-focus')) return;
 					
 					clearTimeout(intentTimeout);
-					clearTimeout(hideIntentTimeout);
-					$li.one('click', function(evt){
-						clearTimeout(intentTimeout);
-					});
 					intentTimeout = setTimeout(function(){
 						
 						I.focusItem($li);
 						
+						$li.one('mouseleave', function(evt){
+							intentTimeout = setTimeout(function(){
+								I.blurItem($li);
+							}, I.options.hoverIntentTime);
+						});
+						
 					}, I.options.hoverIntentTime);
-                }
+                }				
             });
 			
 			
             $nav.on('mouseleave', function(evt){
                 if(!I.options.isTouch){
+					clearTimeout(intentTimeout);
 					hideIntentTimeout = setTimeout(function(){
 
-                    	$nav.removeClass('primary-focus');
+                    	$nav.find('.focus, .primary-focus').removeClass('focus primary-focus');
 
 					}, I.options.hoverIntentTime);
                 }
@@ -179,8 +183,7 @@
 				
 			$li.addClass('focus primary-focus');
 			$li.parents('li,ul').addClass('focus primary-focus');
-			//$li.children('ul,div').addClass('focus');
-			
+			$li.siblings().removeClass('primary-focus');
 		},
 		
 		blurItem: function(li){
