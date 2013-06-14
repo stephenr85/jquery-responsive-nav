@@ -119,7 +119,7 @@
                 $nav.find('li > a').each(function(i, anchor){
                     var $a = $(anchor),
                         $li = $a.closest('li'),
-                        $ul = $li.children('ul');
+                        $ul = $li.children('ul,div');
 
                     $a.append(genFocusIcoFn.call(I, $a, $li, $ul));
                 });
