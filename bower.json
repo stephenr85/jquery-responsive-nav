@@ -1,0 +1,26 @@
+{
+  "name": "jquery-responsive-nav",
+  "version": "1.0.0",
+  "homepage": "https://github.com/stephenr85/jquery-responsive-nav",
+  "authors": [
+    "Stephen Rushing <stephen.rushing@esiteful.com>"
+  ],
+  "description": "A jQuery plugin for responsive navigation.",
+  "keywords": [
+    "jquery",
+    "responsive",
+    "navigation"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    ".gitignore",
+    "."
+  ],
+  "dependencies":{
+    "jquery":"#>=1.9.1"
+  }
+}
