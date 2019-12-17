@@ -141,7 +141,7 @@
             if(this.options.generateMenuHandle){
 
                 var genMenuHandleFn = typeof this.options.generateIconElements === 'function' ? this.options.generateIconElements : function(){
-                    return '<a class="menu-handle generated"><i></i><span>'+this.options.menuHandleText+'</span></a>';
+                    return '<a class="menu-handle generated" href="javascript:;"><i></i><span>'+this.options.menuHandleText+'</span></a>';
                 };
                 $nav.prepend(genMenuHandleFn.call(this));
             }
@@ -166,7 +166,7 @@
                 $nav.find('li.parent').each(function(i, li){
                     var $li = $(li),
                         $ul = $li.children('ul');
-                    $ul.prepend('<li class="back generated"><a><i></i>'+ I.options.backLinkText +'</a></li>');
+                    $ul.prepend('<li class="back generated"><a href="javascript:;"><i></i>'+ I.options.backLinkText +'</a></li>');
                 });
             }
             $nav.on('click', 'li.back > a', function(evt){
